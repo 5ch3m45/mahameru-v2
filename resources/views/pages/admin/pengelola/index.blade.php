@@ -118,9 +118,34 @@
                         </tbody>
                     </table>
                 </div>
-                {{ $pengelolas->links() }}
+                <div class="d-lg-flex justify-content-between">
+                    <div>
+                        {{ $pengelolas->links() }}
+                    </div>
+                    <div class="d-flex">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Hal.</span>
+                            <select name="custom_page" id="" class="form-control">
+                                @for($i = 1; $i < $pengelolas->lastPage() + 1; $i++)
+                                <option value="{{ $i }}" @if($i == $pengelolas->currentPage()) selected @endif>{{ $i }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+    let customPage = $('select[name=custom_page]');
+    customPage.on('change', function() {
+        let url = new URL(location.href);
+        url.searchParams.set("page", $(this).val());
+        location.href = url.href;
+    })
+</script>
 @endsection

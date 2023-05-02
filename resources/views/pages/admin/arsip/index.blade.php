@@ -55,11 +55,11 @@
             </div>
             <div class="col-12">
                 <form id="filter-form" class="row mb-4">
-                    <div class="col-12 col-md-3">
+                    <div class="col-12 col-md-3 mb-3">
                         <label for="search-table">Cari</label>
                         <input id="search-table" class="form-control" type="text" name="search" value="{{ $search }}" placeholder="Cari">
                     </div>
-                    <div class="col-12 col-md-3">
+                    <div class="col-12 col-md-3 mb-3">
                         <label for="status-table">Status</label>
                         <select name="status" id="status-table" class="form-control">
                             <option value="">Semua</option>
@@ -69,7 +69,7 @@
                         </select>
                     </div>
                     @if(auth()->user()->handle_semua_arsip)
-                    <div class="col-12 col-md-3">
+                    <div class="col-12 col-md-3 mb-3">
                         <label for="level-table">Level</label>
                         <select name="level" id="level-table" class="form-control">
                             <option value="">Semua</option>
@@ -78,7 +78,7 @@
                         </select>
                     </div>
                     @endif
-                    <div class="col-12 col-md-3">
+                    <div class="col-12 col-md-3 mb-3">
                         <label for="sort-table">Urutkan</label>
                         <select name="sort" id="sort-table" class="form-control">
                             <option value="baru-diupload" @if($sort=='baru-diupload') selected @endif>
@@ -95,7 +95,7 @@
                             </option>
                         </select>
                     </div>
-                    <div class="col-12 col-md-3">
+                    <div class="col-12 col-md-3 mb-3">
                         <label for="sort-table">&nbsp;</label>
                         <div>
                             <button type="submit" class="btn btn-primary me-2">
@@ -167,9 +167,34 @@
                         </tbody>
                     </table>
                 </div>
-                {{ $arsips->links() }}
+                <div class="d-lg-flex justify-content-between">
+                    <div>
+                        {{ $arsips->links() }}
+                    </div>
+                    <div class="d-flex">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Hal.</span>
+                            <select name="custom_page" id="" class="form-control">
+                                @for($i = 1; $i < $arsips->lastPage() + 1; $i++)
+                                <option value="{{ $i }}" @if($i == $arsips->currentPage()) selected @endif>{{ $i }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+    let customPage = $('select[name=custom_page]');
+    customPage.on('change', function() {
+        let url = new URL(location.href);
+        url.searchParams.set("page", $(this).val());
+        location.href = url.href;
+    })
+</script>
 @endsection
