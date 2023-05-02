@@ -94,7 +94,7 @@ class DashboardController extends Controller
     public function generatePublicationData($start, $end)
     {
         $periode = $this->generatePeriode($start, $end);
-        $publikasiArsip = Arsip::select(\DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d") as date, SUM(id) as arsip_id'))
+        $publikasiArsip = Arsip::select(\DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d") as date, COUNT(id) as arsip_id_count'))
             ->where('created_at', '<=', $end)
             ->where('created_at', '>=', $start)
             ->groupBy('created_at')
@@ -103,11 +103,11 @@ class DashboardController extends Controller
         $publikasiArsipData = [];
         foreach ($periode as $key => $date) {
             $currentDate = $date->format('Y-m-d');
-            $getViewer = @(collect($publikasiArsip)->where('date', $currentDate)->first())->viewers;
+            $getCount = @(collect($publikasiArsip)->where('date', $currentDate)->first())->arsip_id_count;
             array_push($publikasiArsipData, [
                 'date' => $currentDate,
                 'formatted_date' => $date->format('d/m'),
-                'count' => $getViewer ?? 0
+                'count' => $getCount ?? 0
             ]);
         }
 

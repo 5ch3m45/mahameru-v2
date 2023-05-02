@@ -62,7 +62,7 @@
                             <div class="ms-auto d-flex no-block align-items-center">
                                 <ul class="list-inline dl d-flex align-items-center m-r-15 m-b-0">
                                     <li class="list-inline-item d-flex align-items-center text-info">
-                                        <i class="fa fa-circle font-10 me-1"></i> Arsip
+                                        <i class="fa fa-circle font-10 me-1"></i> Pengunjung
                                     </li>
                                 </ul>
                             </div>
@@ -108,8 +108,8 @@
                             </div>
                             <div class="ms-auto d-flex no-block align-items-center">
                                 <ul class="list-inline dl d-flex align-items-center m-r-15 m-b-0">
-                                    <li class="list-inline-item d-flex align-items-center text-info">
-                                        <i class="fa fa-circle font-10 me-1"></i> Pengunjung
+                                    <li class="list-inline-item d-flex align-items-center text-success">
+                                        <i class="fa fa-circle font-10 me-1"></i> Arsip
                                     </li>
                                 </ul>
                             </div>
@@ -400,6 +400,7 @@
         chart1.render();
 
         var options2 = {
+            colors : ['#39cb7f'],
             series: [{
                 name: 'Arsip dipublikasi',
                 data: @json(collect($publikasi_arsip)->pluck('count'))
