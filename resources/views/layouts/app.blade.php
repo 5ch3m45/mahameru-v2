@@ -116,6 +116,10 @@
             height: 20px;
             z-index: 400;
         }
+        
+        .form-check-input {
+            background-color: #fafafa;
+        }
     </style>
 </head>
 
