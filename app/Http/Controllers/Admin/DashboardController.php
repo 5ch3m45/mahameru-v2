@@ -97,7 +97,7 @@ class DashboardController extends Controller
         $publikasiArsip = Arsip::select(\DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d") as date, COUNT(id) as arsip_id_count'))
             ->where('created_at', '<=', $end)
             ->where('created_at', '>=', $start)
-            ->groupBy('created_at')
+            ->groupBy('date')
             ->get();
 
         $publikasiArsipData = [];
