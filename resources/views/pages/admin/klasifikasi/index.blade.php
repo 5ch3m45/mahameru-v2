@@ -68,7 +68,7 @@
                                     <div>
                                         <a class="text-primary" href="{{ route('klasifikasi.show', compact('klasifikasi')) }}">
                                             <span class="d-inline-block">
-                                                {{ $klasifikasi->kode }}. {{ strtoupper($klasifikasi->nama) }}
+                                                {{ substr($klasifikasi->kode, -1) == '.' ? $klasifikasi->kode : $klasifikasi->kode.'.' }} {{ strtoupper($klasifikasi->nama) }}
                                             </span>
                                         </a>
                                     </div>
